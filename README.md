@@ -54,95 +54,99 @@ For just time:
 
 |Name|10|100|1000|10000|
 |---|---|---|---|---|
-|Data.Map.Lazy|532.6 ns|10.95 μs|246.3 μs|3.888 ms|
-|Data.Map.Strict|613.7 ns|12.86 μs|251.6 μs|4.337 ms|
-|Data.HashMap.Lazy|448.1 ns|6.475 μs|112.9 μs|3.681 ms|
-|Data.HashMap.Strict|482.3 ns|6.147 μs|107.7 μs|3.578 ms|
-|Data.IntMap.Lazy|207.8 ns|3.459 μs|50.05 μs|1.695 ms|
-|Data.IntMap.Strict|239.8 ns|3.955 μs|62.72 μs|1.824 ms|
+|Data.Map.Lazy|584.9 ns|11.83 μs|200.3 μs|3.433 ms|
+|Data.Map.Strict|639.1 ns|13.32 μs|224.0 μs|3.930 ms|
+|Data.HashMap.Lazy|409.6 ns|5.415 μs|78.43 μs|2.897 ms|
+|Data.HashMap.Strict|408.6 ns|5.411 μs|78.57 μs|2.474 ms|
+|Data.IntMap.Lazy|202.0 ns|3.253 μs|47.61 μs|1.391 ms|
+|Data.IntMap.Strict|242.7 ns|4.363 μs|63.32 μs|1.549 ms|
 
 ## IO Insert Int (Randomized)
 
 |Name|10|100|1000|10000|
 |---|---|---|---|---|
-|Data.HashTable.IO.BasicHashTable|1501 ns|12.87 μs|132.3 μs|2.628 ms|
-|Data.HashTable.IO.LinearHashTable|914.0 ns|9.915 μs|111.9 μs|1.024 ms|
-|Data.HashTable.IO.CuckooHashTable|1027 ns|10.35 μs|104.2 μs|1.562 ms|
+|Data.HashTable.IO.BasicHashTable|534.8 ns|4.949 μs|50.40 μs|625.1 μs|
+|Data.HashTable.IO.LinearHashTable|910.8 ns|9.744 μs|105.4 μs|862.3 μs|
+|Data.HashTable.IO.CuckooHashTable|919.2 ns|8.823 μs|88.42 μs|985.6 μs|
+|Data.HashTable.IO.Swiss|400.9 ns|3.760 μs|40.03 μs|698.7 μs|
 
 ## Intersection (Randomized)
 
 |Name|10|100|1000|10000|100000|1000000|
 |---|---|---|---|---|---|---|
-|Data.Map.Lazy|1049 ns|12.60 μs|156.2 μs|1578 μs|21.66 ms|197.8 ms|
-|Data.Map.Strict|1042 ns|13.67 μs|151.5 μs|1602 μs|19.97 ms|203.0 ms|
-|Data.HashMap.Lazy|177.2 ns|2.213 μs|30.00 μs|357.9 μs|5.128 ms|51.95 ms|
-|Data.HashMap.Strict|179.3 ns|2.471 μs|30.19 μs|358.4 μs|5.284 ms|51.65 ms|
-|Data.IntMap.Lazy|94.40 ns|0.620 μs|6.229 μs|163.0 μs|4.011 ms|33.22 ms|
-|Data.IntMap.Strict|95.13 ns|0.617 μs|6.444 μs|164.8 μs|3.684 ms|32.42 ms|
+|Data.Map.Lazy|469.5 ns|5.864 μs|88.55 μs|966.7 μs|14.89 ms|170.1 ms|
+|Data.Map.Strict|468.7 ns|5.859 μs|82.78 μs|917.4 μs|9.828 ms|100.5 ms|
+|Data.HashMap.Lazy|165.1 ns|1.815 μs|26.12 μs|332.4 μs|3.834 ms|44.68 ms|
+|Data.HashMap.Strict|164.6 ns|1.811 μs|25.92 μs|331.2 μs|3.844 ms|44.60 ms|
+|Data.IntMap.Lazy|94.93 ns|0.634 μs|7.060 μs|178.4 μs|2.300 ms|28.53 ms|
+|Data.IntMap.Strict|94.47 ns|0.637 μs|6.930 μs|179.9 μs|2.288 ms|28.63 ms|
 
 ## IO Intersection (Randomized)
 
-|Name|10|100|1000|10000|
-|---|---|---|---|---|
-|Data.HashTable.IO.BasicHashTable|2.470 μs|44.41 μs|648.0 μs|8.616 ms|
-|Data.HashTable.IO.LinearHashTable|3.064 μs|40.86 μs|471.9 μs|8.734 ms|
-|Data.HashTable.IO.CuckooHashTable|3.598 μs|48.18 μs|1206 μs|14.65 ms|
+|Name|10|100|1000|10000|100000|
+|---|---|---|---|---|---|
+|Data.HashTable.IO.BasicHashTable|324.7 ns|2.560 μs|37.39 μs|509.8 μs|8.260 ms|
+|Data.HashTable.IO.LinearHashTable|323.7 ns|3.138 μs|34.12 μs|402.2 μs|10.80 ms|
+|Data.HashTable.IO.CuckooHashTable|1078 ns|9.311 μs|91.33 μs|949.0 μs|14.44 ms|
+|Data.HashTable.IO.Swiss|450.7 ns|5.483 μs|54.74 μs|650.4 μs|13.94 ms|
 
 ## Lookup Int (Randomized)
 
 |Name|10|100|1000|10000|100000|1000000|
 |---|---|---|---|---|---|---|
-|Data.Map.Lazy|113.9 ns|1.697 μs|67.91 μs|1225 μs|21.89 ms|556.1 ms|
-|Data.Map.Strict|113.5 ns|1.782 μs|67.75 μs|1258 μs|21.68 ms|543.4 ms|
-|Data.HashMap.Lazy|156.9 ns|2.151 μs|31.06 μs|531.4 μs|17.10 ms|339.4 ms|
-|Data.HashMap.Strict|166.1 ns|2.157 μs|27.52 μs|517.6 μs|16.62 ms|335.9 ms|
-|Data.IntMap.Lazy|138.7 ns|1.830 μs|71.38 μs|1203 μs|24.10 ms|649.5 ms|
-|Data.IntMap.Strict|138.6 ns|1.835 μs|70.28 μs|1192 μs|25.18 ms|629.8 ms|
+|Data.Map.Lazy|148.3 ns|2.380 μs|76.07 μs|1.491 ms|27.95 ms|592.3 ms|
+|Data.Map.Strict|151.1 ns|2.494 μs|74.06 μs|1.481 ms|26.23 ms|551.6 ms|
+|Data.HashMap.Lazy|218.0 ns|2.725 μs|34.16 μs|0.566 ms|11.83 ms|324.8 ms|
+|Data.HashMap.Strict|217.4 ns|2.692 μs|33.77 μs|0.565 ms|11.82 ms|315.3 ms|
+|Data.IntMap.Lazy|169.8 ns|2.531 μs|76.88 μs|1.396 ms|24.69 ms|595.9 ms|
+|Data.IntMap.Strict|169.5 ns|2.542 μs|78.45 μs|1.400 ms|25.11 ms|665.0 ms|
 
 ## IO Lookup Int (Randomized)
 
 |Name|10|100|1000|10000|100000|1000000|
 |---|---|---|---|---|---|---|
-|Data.HashTable.IO.BasicHashTable|24.26 ns|32.13 ns|26.87 ns|24.60 ns|24.56 ns|23.71 ns|
-|Data.HashTable.IO.LinearHashTable|55.54 ns|52.75 ns|55.70 ns|49.12 ns|54.17 ns|304.5 ns|
-|Data.HashTable.IO.CuckooHashTable|59.44 ns|52.11 ns|52.30 ns|53.48 ns|51.75 ns|52.33 ns|
+|Data.HashTable.IO.BasicHashTable|26.23 ns|31.44 ns|25.50 ns|25.81 ns|25.09 ns|25.33 ns|
+|Data.HashTable.IO.LinearHashTable|62.54 ns|69.90 ns|70.42 ns|62.45 ns|63.53 ns|142.3 ns|
+|Data.HashTable.IO.CuckooHashTable|56.32 ns|56.59 ns|56.39 ns|55.98 ns|55.10 ns|55.70 ns|
+|Data.HashTable.IO.Swiss|32.62 ns|61.90 ns|32.34 ns|32.04 ns|32.26 ns|32.13 ns|
 
 ## FromList ByteString (Monotonic)
 
 |Name|10000|
 |---|---|
-|Data.Map.Lazy|5.672 ms|
-|Data.Map.Strict|6.056 ms|
-|Data.HashMap.Lazy|3.099 ms|
-|Data.HashMap.Strict|3.357 ms|
-|Data.Trie|15.65 ms|
+|Data.Map.Lazy|4.679 ms|
+|Data.Map.Strict|5.363 ms|
+|Data.HashMap.Lazy|2.692 ms|
+|Data.HashMap.Strict|2.696 ms|
+|Data.Trie|11.34 ms|
 
 ## FromList ByteString (Randomized)
 
 |Name|10|100|1000|10000|
 |---|---|---|---|---|
-|Data.Map.Lazy|738.9 ns|17.80 μs|395.1 μs|11.27 ms|
-|Data.Map.Strict|846.4 ns|19.68 μs|434.6 μs|10.94 ms|
-|Data.HashMap.Lazy|680.0 ns|9.739 μs|148.0 μs|4.352 ms|
-|Data.HashMap.Strict|709.0 ns|9.864 μs|150.8 μs|4.707 ms|
-|Data.Trie|1062 ns|24.88 μs|1427 μs|25.57 ms|
+|Data.Map.Lazy|698.7 ns|16.16 μs|324.9 μs|5.900 ms|
+|Data.Map.Strict|729.7 ns|17.65 μs|345.0 μs|6.466 ms|
+|Data.HashMap.Lazy|597.1 ns|8.432 μs|126.4 μs|3.245 ms|
+|Data.HashMap.Strict|609.5 ns|8.403 μs|124.1 μs|3.273 ms|
+|Data.Trie|1032 ns|19.06 μs|464.7 μs|18.48 ms|
 
-## LookupByteString Monotonic
-
-|Name|10000|
-|---|---|
-|Data.Map.Lazy|196.2 ns|
-|Data.Map.Strict|198.6 ns|
-|Data.HashMap.Lazy|45.37 ns|
-|Data.HashMap.Strict|45.69 ns|
-|Data.Trie|220.2 ns|
-
-## LookupByteString Randomized
+## Lookup ByteString Monotonic
 
 |Name|10000|
 |---|---|
-|Data.Map.Lazy|218.7 ns|
-|Data.Map.Strict|217.0 ns|
-|Data.HashMap.Lazy|59.10 ns|
-|Data.HashMap.Strict|59.01 ns|
-|Data.Trie|273.3 ns|
+|Data.Map.Lazy|102.7 ns|
+|Data.Map.Strict|101.9 ns|
+|Data.HashMap.Lazy|39.01 ns|
+|Data.HashMap.Strict|38.91 ns|
+|Data.Trie|191.2 ns|
+
+## Lookup ByteString Randomized
+
+|Name|10000|
+|---|---|
+|Data.Map.Lazy|2.616 ms|
+|Data.Map.Strict|2.570 ms|
+|Data.HashMap.Lazy|0.923 ms|
+|Data.HashMap.Strict|1.015 ms|
+|Data.Trie|3.504 ms|
+

@@ -1,4 +1,4 @@
-{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE BangPatterns  #-}
 {-# LANGUAGE DeriveGeneric #-}
 
 -- | Example uses of comparing map-like data structures.
@@ -10,12 +10,18 @@ import           Control.DeepSeq
 import qualified Data.HashMap.Lazy
 import qualified Data.HashMap.Strict
 import qualified Data.HashTable.IO
+import qualified Data.HashTable.ST.Swiss          as STS
+import           Data.HashTable.ST.Swiss.Instance
 import qualified Data.IntMap.Lazy
 import qualified Data.IntMap.Strict
 import qualified Data.Map.Lazy
 import qualified Data.Map.Strict
 import           System.Random
 import           Weigh
+
+
+instance NFData (STS.Table s k v) where
+  rnf x = seq x ()
 
 -- | Weigh maps.
 main :: IO ()
@@ -58,4 +64,7 @@ fromlists =
           elems
      io "Data.HashTable.IO.LinearHashTable (1 million)"
           (Data.HashTable.IO.fromList :: [(Int,Int)] -> IO (Data.HashTable.IO.LinearHashTable Int Int))
+          elems
+     io "Data.HashTable.IO.Swiss (1 million)"
+          (Data.HashTable.IO.fromList :: [(Int,Int)] -> IO (SwissHashTable Int Int))
           elems

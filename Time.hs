@@ -1,28 +1,31 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
-{-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE BangPatterns              #-}
 {-# LANGUAGE ExistentialQuantification #-}
-{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE StandaloneDeriving        #-}
 
 module Main (main) where
 
-import           Common ()
+import           Common                           ()
 import           Control.Arrow
 import           Control.DeepSeq
 import           Control.Monad
 import           Criterion.Main
 import           Criterion.Types
-import           Data.ByteString (ByteString)
-import qualified Data.ByteString.Char8 as S8
+import           Data.ByteString                  (ByteString)
+import qualified Data.ByteString.Char8            as S8
 import qualified Data.HashMap.Lazy
 import qualified Data.HashMap.Strict
 import qualified Data.HashTable.Class
 import qualified Data.HashTable.IO
+import qualified Data.HashTable.IO.Swiss          as S
+import qualified Data.HashTable.ST.Swiss          as STS
+import           Data.HashTable.ST.Swiss.Instance
 import qualified Data.IntMap.Lazy
 import qualified Data.IntMap.Strict
-import           Data.List (foldl')
+import           Data.List                        (foldl')
 import qualified Data.Map.Lazy
 import qualified Data.Map.Strict
-import           Data.Maybe (isJust)
+import           Data.Maybe                       (isJust)
 import qualified Data.Trie
 import           System.Directory
 import           System.Random
@@ -64,6 +67,9 @@ data LookupIO =
 instance NFData (Data.Trie.Trie a) where
   rnf x = seq x ()
 
+instance NFData (STS.Table s k v) where
+  rnf x = seq x ()
+
 main :: IO ()
 main = do
   let fp = "out.csv"
@@ -96,6 +102,10 @@ main = do
                "Data.HashTable.IO.CuckooHashTable"
                Data.HashTable.IO.new
                insertHashTableIOCuckoo
+           , InsertIntIO
+               "Data.HashTable.IO.Swiss"
+               S.new
+               insertHashTableIOSwiss
            ])
     , bgroup
         "Intersection (Randomized)"
@@ -140,6 +150,10 @@ main = do
                "Data.HashTable.IO.CuckooHashTable"
                Data.HashTable.IO.fromList
                intersectionHashTableIOCuckoo
+           , IntersectionIO
+               "Data.HashTable.IO.Swiss"
+               Data.HashTable.IO.fromList
+               intersectionHashTableIOSwiss
 
            ])
     , bgroup
@@ -181,6 +195,10 @@ main = do
            , LookupIO
                "Data.HashTable.IO.CuckooHashTable"
                (Data.HashTable.IO.fromList :: [(Int, Int)] -> IO (Data.HashTable.IO.CuckooHashTable Int Int))
+               Data.HashTable.IO.lookup
+           , LookupIO
+               "Data.HashTable.IO.Swiss"
+               (Data.HashTable.IO.fromList :: [(Int, Int)] -> IO (SwissHashTable Int Int))
                Data.HashTable.IO.lookup
 
            ])
@@ -381,37 +399,37 @@ main = do
 insertMapLazy :: Int -> Data.Map.Lazy.Map Int Int
 insertMapLazy n0 = go n0 mempty
   where
-    go 0 acc = acc
+    go 0 acc  = acc
     go n !acc = go (n - 1) (Data.Map.Lazy.insert n n acc)
 
 insertMapStrict :: Int -> Data.Map.Strict.Map Int Int
 insertMapStrict n0 = go n0 mempty
   where
-    go 0 acc = acc
+    go 0 acc  = acc
     go n !acc = go (n - 1) (Data.Map.Strict.insert n n acc)
 
 insertHashMapLazy :: Int -> Data.HashMap.Lazy.HashMap Int Int
 insertHashMapLazy n0 = go n0 mempty
   where
-    go 0 acc = acc
+    go 0 acc  = acc
     go n !acc = go (n - 1) (Data.HashMap.Lazy.insert n n acc)
 
 insertHashMapStrict :: Int -> Data.HashMap.Strict.HashMap Int Int
 insertHashMapStrict n0 = go n0 mempty
   where
-    go 0 acc = acc
+    go 0 acc  = acc
     go n !acc = go (n - 1) (Data.HashMap.Strict.insert n n acc)
 
 insertIntMapLazy :: Int -> Data.IntMap.Lazy.IntMap Int
 insertIntMapLazy n0 = go n0 mempty
   where
-    go 0 acc = acc
+    go 0 acc  = acc
     go n !acc = go (n - 1) (Data.IntMap.Lazy.insert n n acc)
 
 insertIntMapStrict :: Int -> Data.IntMap.Strict.IntMap Int
 insertIntMapStrict n0 = go n0 mempty
   where
-    go 0 acc = acc
+    go 0 acc  = acc
     go n !acc = go (n - 1) (Data.IntMap.Strict.insert n n acc)
 
 insertHashTableIO :: Data.HashTable.Class.HashTable ht
@@ -431,6 +449,11 @@ insertHashTableIOCuckoo :: Data.HashTable.IO.CuckooHashTable Int Int
   -> Int
   -> IO (Data.HashTable.IO.CuckooHashTable Int Int)
 insertHashTableIOCuckoo = insertHashTableIO
+
+insertHashTableIOSwiss :: SwissHashTable Int Int
+  -> Int
+  -> IO (SwissHashTable Int Int)
+insertHashTableIOSwiss = insertHashTableIO
 
 insertHashTableIOLinear :: Data.HashTable.IO.LinearHashTable Int Int
   -> Int
@@ -457,6 +480,11 @@ intersectionHashTableIOCuckoo :: Data.HashTable.IO.CuckooHashTable Int Int
   -> Data.HashTable.IO.CuckooHashTable Int Int
   -> IO (Data.HashTable.IO.CuckooHashTable Int Int)
 intersectionHashTableIOCuckoo = intersectionHashTableIO
+
+intersectionHashTableIOSwiss :: SwissHashTable Int Int
+  -> SwissHashTable Int Int
+  -> IO (SwissHashTable Int Int)
+intersectionHashTableIOSwiss = intersectionHashTableIO
 
 intersectionHashTableIOLinear :: Data.HashTable.IO.LinearHashTable Int Int
   -> Data.HashTable.IO.LinearHashTable Int Int

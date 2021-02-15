@@ -1,4 +1,8 @@
-resolver: lts-8.5
+resolver: lts-16.31
 extra-deps:
   - judy-0.3.0
   - weigh-0.0.7
+  - swisstable-0.1.0.1@sha256:54ccfa01db4d13df14befd1925faccc9e70c9e0e76a19a59178d6a316175ceef,2002
+  - bytestring-trie-0.2.5.0@sha256:9efa9c6f556314d28486be2470ff789419c5238ed2e354870623a3cbbd28fbe2,3349
+  - primitive-0.7.1.0
+  - hs-swisstable-hashtables-class-0.1.0.0
